@@ -979,7 +979,7 @@ func (s *SubService) genRemark(inbound *model.Inbound, email string, extra strin
 				return fmt.Sprintf("⛔️N/A%s%s", separationChar, strings.Join(remark, separationChar))
 			}
 			if vol := stats.Total - (stats.Up + stats.Down); vol > 0 {
-				remark = append(remark, fmt.Sprintf("%s%s", common.FormatTraffic(vol), "📊"))
+				remark = append(remark, fmt.Sprintf(" %s %s", common.FormatTraffic(vol), "📊"))
 			}
 			now := time.Now().Unix()
 			switch exp := stats.ExpiryTime / 1000; {
@@ -990,14 +990,14 @@ func (s *SubService) genRemark(inbound *model.Inbound, email string, extra strin
 				minutes := (remainingSeconds % 3600) / 60
 				if days > 0 {
 					if hours > 0 {
-						remark = append(remark, fmt.Sprintf("%dD,%dH⏳", days, hours))
+						remark = append(remark, fmt.Sprintf("%dروز و %dساعت ⏳", days, hours))
 					} else {
-						remark = append(remark, fmt.Sprintf("%dD⏳", days))
+						remark = append(remark, fmt.Sprintf("%dروز و %dساعت ⏳", days))
 					}
 				} else if hours > 0 {
-					remark = append(remark, fmt.Sprintf("%dH⏳", hours))
+					remark = append(remark, fmt.Sprintf("%dساعت ⏳", hours))
 				} else {
-					remark = append(remark, fmt.Sprintf("%dM⏳", minutes))
+					remark = append(remark, fmt.Sprintf("%dدقیقه ⏳", minutes))
 				}
 			case exp < 0:
 				days := exp / -86400
@@ -1005,14 +1005,14 @@ func (s *SubService) genRemark(inbound *model.Inbound, email string, extra strin
 				minutes := (exp % -3600) / 60
 				if days > 0 {
 					if hours > 0 {
-						remark = append(remark, fmt.Sprintf("%dD,%dH⏳", days, hours))
+						remark = append(remark, fmt.Sprintf("%dروز و %dساعت ⏳", days, hours))
 					} else {
-						remark = append(remark, fmt.Sprintf("%dD⏳", days))
+						remark = append(remark, fmt.Sprintf("%dروز ⏳", days))
 					}
 				} else if hours > 0 {
-					remark = append(remark, fmt.Sprintf("%dH⏳", hours))
+					remark = append(remark, fmt.Sprintf("%dساعت ⏳", hours))
 				} else {
-					remark = append(remark, fmt.Sprintf("%dM⏳", minutes))
+					remark = append(remark, fmt.Sprintf("%dدقیقه ⏳", minutes))
 				}
 			}
 		}
